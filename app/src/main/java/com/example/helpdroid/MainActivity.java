@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,9 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +22,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int dateTime;
@@ -113,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int latestLocationIndex = locationResult.getLocations().size() - 1;
                         double latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
                         double longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
+
                         //currentLocation.setText(String.format("Latitude: %s\nLongitude: %s", latitude, longitude));
                         Location location = new Location("providerNA");
                         location.setLatitude(latitude);
@@ -156,16 +147,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.police:
-                Intent police = new Intent(MainActivity.this,PoliceActivity.class);
+                Intent police = new Intent(MainActivity.this, DetailsListActivity.class);
                 startActivity(police);
-                break;
-            case R.id.hospital:
-                Intent hospital = new Intent(MainActivity.this,PoliceActivity.class);
-                startActivity(hospital);
-                break;
-            case R.id.fireService:
-                Intent fireService = new Intent(MainActivity.this,PoliceActivity.class);
-                startActivity(fireService);
                 break;
         }
     }

@@ -15,11 +15,11 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/textViewPriority"
+            android:id="@+id/imageViewCall"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             android:layout_marginRight="6dp"
             android:src="@drawable/call_icon"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
@@ -29,17 +29,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="Aidul Islam"
+            android:text="Fahim"
             android:maxLines="1"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/textViewPriority"
+            android:layout_toLeftOf="@id/imageViewCall"
             android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/textViewNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="01679733976"
+            android:text="123456789"
             android:layout_below="@id/textViewName"/>
 
     </RelativeLayout>

@@ -12,9 +12,7 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FireServiceActivity"></activity>
-        <activity android:name=".HospitalActivity" />
-        <activity android:name=".PoliceActivity" />
+        <activity android:name=".DetailsListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,5 +22,5 @@
         </activity>
         <service android:name=".FetchAddressIntentService"/>
     </application>
-
+<uses-permission android:name="android.permission.CALL_PHONE"/>
 </manifest>
