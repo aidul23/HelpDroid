@@ -1,4 +1,4 @@
-package com.example.helpdroid;
+package com.example.helpdroid.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.helpdroid.R;
+import com.example.helpdroid.adapter.Adapter;
+import com.example.helpdroid.model.Pojo;
+
 import java.util.ArrayList;
 
 public class DetailsListActivity extends AppCompatActivity {
@@ -30,9 +34,9 @@ public class DetailsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details_list);
 
         //Static data for test.
-        list.add(new Pojo("Arif","013456789"));
-        list.add(new Pojo("Sadman","013456789"));
-        list.add(new Pojo("Rakib","013456789"));
+        list.add(new Pojo("Memon City Corporation","+880-31-621799"));
+        list.add(new Pojo("Chattagram Maa-Shishu General Hospital","+880-31-2520063"));
+        list.add(new Pojo("Chittagong Metropolitan Hospital Pvt Ltd.","+88-031-654732"));
 
         RecyclerView recyclerView = findViewById(R.id.policeRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

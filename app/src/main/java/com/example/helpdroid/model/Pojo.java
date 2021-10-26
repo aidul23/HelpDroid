@@ -1,4 +1,4 @@
-package com.example.helpdroid;
+package com.example.helpdroid.model;
 
 public class Pojo {
     private String name;

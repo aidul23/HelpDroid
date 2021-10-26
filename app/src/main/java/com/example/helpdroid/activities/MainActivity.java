@@ -1,4 +1,4 @@
-package com.example.helpdroid;
+package com.example.helpdroid.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +17,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.helpdroid.FetchAddressIntentService;
+import com.example.helpdroid.R;
+import com.example.helpdroid.constants.Constants;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int dateTime;
@@ -44,29 +45,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         help = findViewById(R.id.help);
         currentLocation = findViewById(R.id.currentLocation);
 
-        time = findViewById(R.id.time);
+//        time = findViewById(R.id.time);
 
         police.setOnClickListener(this);
         hospital.setOnClickListener(this);
         fireService.setOnClickListener(this);
         help.setOnClickListener(this);
 
-        int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-
-
-        if (currentTime >= 0 && currentTime <= 5) {
-            time.setText("Good Night");
-        } else if (currentTime >= 6 && currentTime <= 10) {
-            time.setText("Good Morning");
-        } else if (currentTime >= 11 && currentTime <= 15) {
-            time.setText("Good Noon");
-        } else if (currentTime >= 16 && currentTime <= 18) {
-            time.setText("Good Afternoon");
-        } else if (currentTime >= 19 && currentTime <= 20) {
-            time.setText("Good Evening");
-        } else if (currentTime >= 21 && currentTime <= 24) {
-            time.setText("Good Night");
-        }
+//        int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+//
+//
+//        if (currentTime >= 0 && currentTime <= 5) {
+//            time.setText("Good Night");
+//        } else if (currentTime >= 6 && currentTime <= 10) {
+//            time.setText("Good Morning");
+//        } else if (currentTime >= 11 && currentTime <= 15) {
+//            time.setText("Good Noon");
+//        } else if (currentTime >= 16 && currentTime <= 18) {
+//            time.setText("Good Afternoon");
+//        } else if (currentTime >= 19 && currentTime <= 20) {
+//            time.setText("Good Evening");
+//        } else if (currentTime >= 21 && currentTime <= 24) {
+//            time.setText("Good Night");
+//        }
 
         getCurrentLocation();
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void fetchAddressFromLatLong(Location location){
-        Intent intent = new Intent(this,FetchAddressIntentService.class);
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(Constants.RECEIVER,resultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA,location);
         startService(intent);
