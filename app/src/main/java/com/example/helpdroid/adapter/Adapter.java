@@ -10,15 +10,16 @@ import com.example.helpdroid.model.Pojo;
 import com.example.helpdroid.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
     public OnItemClickListener listener;
-    private ArrayList<Pojo> list = new ArrayList<>();
+    private List<Pojo> list = new ArrayList<>();
 
-    public Adapter(ArrayList<Pojo> list) {
+    public Adapter(List<Pojo> list) {
         this.list = list;
     }
 
