@@ -146,9 +146,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()){
             case R.id.police:
-                Intent police = new Intent(MainActivity.this, DetailsListActivity.class);
+                Intent police = new Intent(MainActivity.this, DetailsListPoliceActivity.class);
                 startActivity(police);
                 break;
         }

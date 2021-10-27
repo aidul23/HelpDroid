@@ -21,7 +21,7 @@ import com.example.helpdroid.model.Pojo;
 
 import java.util.ArrayList;
 
-public class DetailsListActivity extends AppCompatActivity {
+public class DetailsListPoliceActivity extends AppCompatActivity {
 
     ImageView callButton;
     public static final int REQUEST_CALL = 1;
@@ -31,12 +31,12 @@ public class DetailsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_list);
+        setContentView(R.layout.activity_details_list_police);
 
         //Static data for test.
-        list.add(new Pojo("Memon City Corporation","+880-31-621799"));
-        list.add(new Pojo("Chattagram Maa-Shishu General Hospital","+880-31-2520063"));
-        list.add(new Pojo("Chittagong Metropolitan Hospital Pvt Ltd.","+88-031-654732"));
+        list.add(new Pojo("Memon City Corporation","+880-31-621799","55, Sadarghat Road Chittagong"));
+        list.add(new Pojo("Chattagram Maa-Shishu General Hospital","+880-31-2520063","55, Sadarghat Road Chittagong"));
+        list.add(new Pojo("Chittagong Metropolitan Hospital Pvt Ltd.","+88-031-654732","55, Sadarghat Road Chittagong"));
 
         RecyclerView recyclerView = findViewById(R.id.policeRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,14 +51,14 @@ public class DetailsListActivity extends AppCompatActivity {
             public void OnItemClick(Pojo pojo) {
                 String number = pojo.getNumber();
                 if(number.trim().length() > 0){
-                    if(ContextCompat.checkSelfPermission(DetailsListActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                        ActivityCompat.requestPermissions(DetailsListActivity.this,new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                    if(ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this,new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                     }else{
                         String dial = "tel:" + number;
                         startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
                     }
                 }else{
-                    Toast.makeText(DetailsListActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -70,14 +70,14 @@ public class DetailsListActivity extends AppCompatActivity {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 String number = pojo.getNumber();
                 if(number.trim().length() > 0){
-                    if(ContextCompat.checkSelfPermission(DetailsListActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                        ActivityCompat.requestPermissions(DetailsListActivity.this,new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                    if(ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this,new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                     }else{
                         String dial = "tel:" + number;
                         startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
                     }
                 }else{
-                    Toast.makeText(DetailsListActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
                 }
             }
             else{

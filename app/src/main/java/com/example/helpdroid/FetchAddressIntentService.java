@@ -65,6 +65,5 @@ public class FetchAddressIntentService extends IntentService {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.RESULT_DATA_KEY,addressMessage);
         resultReceiver.send(resultCode,bundle);
-
     }
 }

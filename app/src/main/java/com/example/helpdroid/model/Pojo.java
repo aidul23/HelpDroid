@@ -3,10 +3,12 @@ package com.example.helpdroid.model;
 public class Pojo {
     private String name;
     private String number;
+    private String address;
 
-    public Pojo(String name, String number) {
+    public Pojo(String name, String number, String address) {
         this.name = name;
         this.number = number;
+        this.address = address;
     }
 
     public String getName() {
@@ -23,5 +25,13 @@ public class Pojo {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -35,6 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
         Pojo currentItem = list.get(position);
         holder.name.setText(currentItem.getName());
         holder.number.setText(currentItem.getNumber());
+        holder.address.setText(currentItem.getAddress());
     }
 
     @Override
@@ -45,11 +46,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
     class Holder extends RecyclerView.ViewHolder{
         public TextView name;
         public TextView number;
+        public TextView address;
         public ImageView callButton;
         public Holder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewName);
             number = itemView.findViewById(R.id.textViewNumber);
+            address = itemView.findViewById(R.id.address);
             callButton = itemView.findViewById(R.id.imageViewCall);
 
             callButton.setOnClickListener(new View.OnClickListener() {
