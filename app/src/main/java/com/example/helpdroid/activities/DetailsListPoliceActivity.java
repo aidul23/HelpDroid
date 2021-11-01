@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.helpdroid.R;
 import com.example.helpdroid.adapter.Adapter;
 import com.example.helpdroid.model.Pojo;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -62,6 +63,7 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
                 R.array.divisionName, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(this);
 
 
         //recyclerView
@@ -69,10 +71,40 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        division = spinner.getSelectedItem().toString();
+
         Log.d(TAG, "onCreate: "+division);
 
+
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                String number = pojo.getNumber();
+                if (number.trim().length() > 0) {
+                    if (ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                    } else {
+                        String dial = "tel:" + number;
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+                    }
+                } else {
+                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        division = parent.getItemAtPosition(position).toString();
+        Log.d(TAG, "onItemSelected: "+division);
         db.collection("Hospitals")
+                .whereEqualTo("division",division)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -107,36 +139,13 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
                                 }
                             }
                         });
-
                     }
-                });
-    }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CALL) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                String number = pojo.getNumber();
-                if (number.trim().length() > 0) {
-                    if (ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-                    } else {
-                        String dial = "tel:" + number;
-                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
-                    }
-                } else {
-                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Check Your Internet!", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        });
     }
 
     @Override

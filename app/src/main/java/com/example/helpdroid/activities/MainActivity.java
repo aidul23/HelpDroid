@@ -24,10 +24,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int dateTime;
     CardView police, hospital, fireService, help;
+    ShapeableImageView profile;
     TextView time;
     TextView currentLocation;
     public static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fireService = findViewById(R.id.fireService);
         help = findViewById(R.id.help);
         currentLocation = findViewById(R.id.currentLocation);
+        profile = findViewById(R.id.profile);
 
 //        time = findViewById(R.id.time);
 
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hospital.setOnClickListener(this);
         fireService.setOnClickListener(this);
         help.setOnClickListener(this);
+        profile.setOnClickListener(this);
 
 //        int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 //
@@ -151,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.police:
                 Intent police = new Intent(MainActivity.this, DetailsListPoliceActivity.class);
                 startActivity(police);
+                break;
+            case R.id.profile:
+                Intent profileButton = new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(profileButton);
                 break;
         }
     }
