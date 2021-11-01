@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +90,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+
+        if (requestCode == 100 && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendMessage();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void getCurrentLocation() {
@@ -97,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION_PERMISSION);
-        }
-        else{
+        } else {
             LocationServices.getFusedLocationProviderClient(MainActivity.this).requestLocationUpdates(locationRequest, new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
@@ -123,14 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void fetchAddressFromLatLong(Location location){
+    private void fetchAddressFromLatLong(Location location) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
-        intent.putExtra(Constants.RECEIVER,resultReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA,location);
+        intent.putExtra(Constants.RECEIVER, resultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
         startService(intent);
     }
 
-    private class AddressResultReceiver extends ResultReceiver{
+    private class AddressResultReceiver extends ResultReceiver {
         AddressResultReceiver(Handler handler) {
             super(handler);
         }
@@ -138,10 +148,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             super.onReceiveResult(resultCode, resultData);
-            if(resultCode == Constants.SUCCESS_RESULT){
+            if (resultCode == Constants.SUCCESS_RESULT) {
                 currentLocation.setText(resultData.getString(Constants.RESULT_DATA_KEY));
-            }
-            else{
+            } else {
                 Toast.makeText(MainActivity.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
             }
         }
@@ -151,15 +160,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.police:
                 Intent police = new Intent(MainActivity.this, DetailsListPoliceActivity.class);
                 startActivity(police);
                 break;
             case R.id.profile:
-                Intent profileButton = new Intent(MainActivity.this,ProfileActivity.class);
+                Intent profileButton = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(profileButton);
                 break;
+            case R.id.help:
+                //check conditions
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                    sendMessage();
+                } else {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+                }
+        }
+    }
+
+    private void sendMessage() {
+        String message = "Help me please! \nI am stack in " + currentLocation + ".";
+        if (!message.equals("")) {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage("01914120202", null, message, null, null);
+            Toast.makeText(MainActivity.this, "Message sent successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            //handle error or something else
         }
     }
 
