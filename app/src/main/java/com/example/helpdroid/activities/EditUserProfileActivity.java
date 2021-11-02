@@ -14,7 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class EditUserProfileActivity extends AppCompatActivity {
     private ActivityEditUserProfileBinding binding;
     private int selection;
-    private String name,email,dept;
+    private String name,email,trustedContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             selection = extras.getInt(Constants.USER_EDIT_SELECTION);
             name = extras.getString(Constants.USER_NAME);
             email = extras.getString(Constants.USER_EMAIL);
+            trustedContact = extras.getString(Constants.USER_TRUSTED_CONTACT);
         }
 
         switch (selection) {
@@ -51,6 +52,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 binding.firstEdittext.setText(email);
                 binding.secondTextInputLayout.setVisibility(View.GONE);
                 break;
+            case 2:
+                binding.firstTextInputLayout.setHint("Trusted Contact");
+                binding.firstEdittext.setText(trustedContact);
+                binding.secondTextInputLayout.setVisibility(View.GONE);
         }
 
     }

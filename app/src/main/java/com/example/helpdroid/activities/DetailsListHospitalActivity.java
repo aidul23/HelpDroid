@@ -28,13 +28,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsListPoliceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class DetailsListHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     ImageView callButton;
     public static final int REQUEST_CALL = 1;
@@ -46,11 +45,10 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "result";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_list_police);
+        setContentView(R.layout.activity_details_list_hospital);
 
         //spinner
         Spinner spinner = findViewById(R.id.division_spinner);
@@ -61,7 +59,7 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
         spinner.setOnItemSelectedListener(this);
 
         //recyclerView
-        recyclerView = findViewById(R.id.policeRecyclerView);
+        recyclerView = findViewById(R.id.hospitalRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
     }
@@ -73,14 +71,14 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 String number = pojo.getNumber();
                 if (number.trim().length() > 0) {
-                    if (ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                    if (ContextCompat.checkSelfPermission(DetailsListHospitalActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(DetailsListHospitalActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                     } else {
                         String dial = "tel:" + number;
                         startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
                     }
                 } else {
-                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsListHospitalActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
@@ -93,7 +91,7 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
         division = parent.getItemAtPosition(position).toString();
         Log.d(TAG, "onItemSelected: "+division);
         list.clear();
-        db.collection("Police")
+        db.collection("Hospitals")
                 .whereEqualTo("division",division)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -102,9 +100,9 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                             Pojo pojo = new Pojo(
                                     documentSnapshot.getData().get("division").toString(),
-                                    documentSnapshot.getData().get("policeAddress").toString(),
-                                    documentSnapshot.getData().get("policeName").toString(),
-                                    documentSnapshot.getData().get("policeNumber").toString()
+                                    documentSnapshot.getData().get("hospitalAddress").toString(),
+                                    documentSnapshot.getData().get("hospitalName").toString(),
+                                    documentSnapshot.getData().get("hospitalNumber").toString()
                             );
                             list.add(pojo);
                             Log.d(TAG, "onSuccess: " + documentSnapshot);
@@ -118,14 +116,14 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
                             public void OnItemClick(Pojo pojo) {
                                 String number = pojo.getNumber();
                                 if (number.trim().length() > 0) {
-                                    if (ContextCompat.checkSelfPermission(DetailsListPoliceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(DetailsListPoliceActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                                    if (ContextCompat.checkSelfPermission(DetailsListHospitalActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                        ActivityCompat.requestPermissions(DetailsListHospitalActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                                     } else {
                                         String dial = "tel:" + number;
                                         startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
                                     }
                                 } else {
-                                    Toast.makeText(DetailsListPoliceActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DetailsListHospitalActivity.this, "Invalid Number!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -142,6 +140,4 @@ public class DetailsListPoliceActivity extends AppCompatActivity implements Adap
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 }
-

@@ -27,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         binding.editUsername.setOnClickListener(this);
         binding.editUserEmail.setOnClickListener(this);
         binding.editUserProfilePic.setOnClickListener(this);
+        binding.editTrustedContact1.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +47,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent2 = new Intent(ProfileActivity.this,EditUserProfileActivity.class);
                 intent2.putExtras(bundle);
                 startActivity(intent2);
+                break;
+            case R.id.edit_trusted_contact_1:
+                bundle.putInt(Constants.USER_EDIT_SELECTION, Constants.USER_TRUSTED_CONTACT_VALUE);
+                bundle.putString(Constants.USER_TRUSTED_CONTACT, (String) binding.trustedContact1.getText());
+                Intent intent3 = new Intent(ProfileActivity.this,EditUserProfileActivity.class);
+                intent3.putExtras(bundle);
+                startActivity(intent3);
                 break;
             case R.id.edit_user_profile_pic:
                 ImagePicker.with(this)

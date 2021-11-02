@@ -14,7 +14,11 @@ public class Constants {
 
     public static int USER_EMAIL_VALUE = 1;
 
+    public static int USER_TRUSTED_CONTACT_VALUE = 2;
+
     public static String USER_EMAIL = "user-email";
 
     public static String USER_NAME = "user-name";
+
+    public static String USER_TRUSTED_CONTACT = "user-name";
 }

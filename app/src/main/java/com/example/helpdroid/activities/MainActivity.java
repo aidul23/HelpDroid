@@ -165,6 +165,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent police = new Intent(MainActivity.this, DetailsListPoliceActivity.class);
                 startActivity(police);
                 break;
+            case R.id.hospital:
+                Intent hospital = new Intent(MainActivity.this, DetailsListHospitalActivity.class);
+                startActivity(hospital);
+                break;
+            case R.id.fireService:
+                Intent fire = new Intent(MainActivity.this, DetailsListFireActivity.class);
+                startActivity(fire);
+                break;
             case R.id.profile:
                 Intent profileButton = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(profileButton);
