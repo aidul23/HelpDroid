@@ -63,4 +63,7 @@ dependencies {
     //image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
+
+    implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
+
 }
