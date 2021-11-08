@@ -36,20 +36,20 @@
             android:background="@drawable/blue_border_rounded_cornwe">
 
             <!-- INPUT -->
-            <customfonts.EditText_Poppins_Regular
-                android:id="@+id/username_input"
+            <EditText
+                android:id="@+id/useremail_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/username_icon"
+                android:background="@android:color/transparent"
                 android:hint="Email"
-                android:textSize="12sp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:maxLines="1"
-                android:inputType="textEmailAddress"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="12sp" />
 
             <!-- ICON -->
             <ImageView
@@ -73,21 +73,21 @@
             android:background="@drawable/blue_border_rounded_cornwe">
 
             <!-- INPUT -->
-            <customfonts.EditText_Poppins_Regular
-                android:id="@+id/pass"
+            <EditText
+                android:id="@+id/user_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/icon"
+                android:background="@android:color/transparent"
                 android:hint="Password"
-                android:textSize="12sp"
+                android:inputType="textPassword"
+                android:maxLength="10"
+                android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
-                android:maxLines="1"
-                android:inputType="textPassword"
                 android:paddingBottom="15dp"
-                android:maxLength="10"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="12sp" />
 
             <!-- ICON -->
             <ImageView
@@ -102,7 +102,8 @@
         </RelativeLayout>
 
 
-        <customfonts.MyTextView_Poppins_Medium
+        <Button
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -118,14 +119,15 @@
             android:background="@drawable/blue_fill__rounded_color"
             />
 
-        <customfonts.MyTextView_Poppins_Medium
+        <TextView
+            android:id="@+id/text_view_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10.5sp"
             android:textColor="#1566e0"
             android:layout_marginTop="12dp"
             android:layout_gravity="center"
-            android:text="FORGOT PASSWORD ?"
+            android:text="Don't have account? Register"
             />
 
     </LinearLayout>
