@@ -42,7 +42,6 @@
         <activity android:name=".activities.DetailsListPoliceActivity" />
         <activity android:name=".activities.MainActivity"></activity>
 
-        <service android:name=".FetchAddressIntentService" />
     </application>
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />

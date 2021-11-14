@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.helpdroid.R;
 import com.example.helpdroid.databinding.ActivityRegistrationBinding;
+import com.example.helpdroid.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -71,6 +72,8 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Password and Confirm Password do not match!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+//        User user = new User(name,email,phone,"01839154602");
 
 
         firebaseAuth.createUserWithEmailAndPassword(email,password)
