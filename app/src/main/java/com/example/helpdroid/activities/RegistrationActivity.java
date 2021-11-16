@@ -14,15 +14,18 @@ import com.example.helpdroid.databinding.ActivityRegistrationBinding;
 import com.example.helpdroid.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "RegistrationActivity";
     private ActivityRegistrationBinding binding;
     FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-//        User user = new User(name,email,phone,"01839154602");
+
 
 
         firebaseAuth.createUserWithEmailAndPassword(email,password)
@@ -88,6 +91,10 @@ public class RegistrationActivity extends AppCompatActivity {
                             binding.useremailInput.setText("");
 
                             Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                            User user = new User(name,email,phone,"01839154602");
+
+                            db.collection("User").document(email).set(user);
 
                             Intent goToMain = new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(goToMain);

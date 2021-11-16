@@ -12,6 +12,7 @@ import com.example.helpdroid.R;
 import com.example.helpdroid.constants.Constants;
 import com.example.helpdroid.databinding.ActivityProfileBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         binding.editUserEmail.setOnClickListener(this);
         binding.editUserProfilePic.setOnClickListener(this);
         binding.editTrustedContact1.setOnClickListener(this);
+        binding.logoutButton.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +64,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         .compress(1024)            //Final image size will be less than 1 MB(Optional)
                         .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
+            case R.id.logout_button:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
+                finish();
         }
     }
         @Override
@@ -72,4 +78,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             binding.profileImage.setImageURI(uri);
 
         }
+
+
 }
