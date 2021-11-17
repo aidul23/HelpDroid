@@ -16,9 +16,11 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.helpdroid.R;
 import com.example.helpdroid.model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -30,6 +32,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.CarouselViewPager;
+import com.synnapps.carouselview.ImageListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,11 +48,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ShapeableImageView profile;
     TextView currentLocation,userNameText;
     String locationMessage;
+    CarouselView carouselView;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final String TAG = "MainActivity";
     User user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    private String[] urls = {"https://www.orissapost.com/wp-content/uploads/2020/01/WOMEN-SAFETY.jpeg",
+            "https://vodakm.zeenews.com/vod/How-to-Protect-Yourself-IN-WEB.mp4/screenshot/00000027.jpg",
+            "https://www.vpnmentor.com/wp-content/uploads/2018/07/wg18-768x403.jpg"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentLocation = findViewById(R.id.currentLocation);
         profile = findViewById(R.id.profile);
         userNameText = findViewById(R.id.user_name);
+        carouselView = findViewById(R.id.imageSlider);
 
         String email = auth.getCurrentUser().getEmail();
         Log.d(TAG, "onCreate: "+email);
@@ -89,6 +100,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(this);
 
         getLocation();
+
+        carouselView.setPageCount(3);
+        carouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(imageView).load(urls[position]).into(imageView);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+        });
 
     }
 

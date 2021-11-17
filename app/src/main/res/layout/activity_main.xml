@@ -6,10 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/imageSlider"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:fillColor="#FFFFFFFF"
+        android:layout_below="@id/linerlayoutId"
+        app:pageColor="#00000000"
+        app:radius="6dp"
+        app:slideInterval="3000"
+        app:strokeColor="#FF777777"
+        app:strokeWidth="1dp" />
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linerlayoutId"
+        android:layout_below="@id/imageSlider"
         android:layout_marginTop="16dp"
         android:columnCount="2"
         android:rowCount="2">
@@ -43,8 +58,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Police"
                     android:layout_marginTop="8dp"
+                    android:text="Police"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -201,6 +216,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/location_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
