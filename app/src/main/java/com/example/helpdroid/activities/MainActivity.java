@@ -20,11 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helpdroid.R;
+import com.example.helpdroid.model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,10 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     CardView police, hospital, fireService, help;
     ShapeableImageView profile;
-    TextView currentLocation;
+    TextView currentLocation,userNameText;
     String locationMessage;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final String TAG = "MainActivity";
+    User user;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +61,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         help = findViewById(R.id.help);
         currentLocation = findViewById(R.id.currentLocation);
         profile = findViewById(R.id.profile);
+        userNameText = findViewById(R.id.user_name);
+
+        String email = auth.getCurrentUser().getEmail();
+        Log.d(TAG, "onCreate: "+email);
+
+
+        db.collection("User").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()) {
+                    user = documentSnapshot.toObject(User.class);
+
+                    String userName = user.getUserName();
+                    userNameText.setText(userName);
+                }
+            }
+        });
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
 
         police.setOnClickListener(this);
         hospital.setOnClickListener(this);
@@ -127,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.profile:
                 Intent profileButton = new Intent(MainActivity.this, ProfileActivity.class);
+                profileButton.putExtra("user",user);
                 startActivity(profileButton);
                 break;
             case R.id.help:

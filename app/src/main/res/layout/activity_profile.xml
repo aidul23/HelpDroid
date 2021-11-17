@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Md. Aidul Islam"
+                        android:text="User Name"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -128,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="aidul5613@gmail.com"
+                        android:text="username@gmail.com"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 

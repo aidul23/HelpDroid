@@ -60,6 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String phone = binding.userphoneInput.getText().toString().trim();
         String name = binding.usernameInput.getText().toString().trim();
 
+
         if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty() || name.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Field must not be empty!", Toast.LENGTH_SHORT).show();
             return;
@@ -75,8 +76,6 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Password and Confirm Password do not match!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
 
 
         firebaseAuth.createUserWithEmailAndPassword(email,password)

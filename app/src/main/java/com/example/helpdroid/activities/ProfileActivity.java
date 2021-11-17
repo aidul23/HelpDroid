@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.helpdroid.R;
 import com.example.helpdroid.constants.Constants;
 import com.example.helpdroid.databinding.ActivityProfileBinding;
+import com.example.helpdroid.model.User;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +25,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Intent intent = getIntent();
+
+        User user = intent.getParcelableExtra("user");
+
+        binding.username.setText(user.getUserName());
+        binding.userEmail.setText(user.getUserEmail());
+        binding.userNumber.setText(user.getUserPhoneNumber());
+        binding.trustedContact1.setText(user.getTrustedPhoneNumber1());
 
         binding.editUsername.setOnClickListener(this);
         binding.editUserEmail.setOnClickListener(this);
