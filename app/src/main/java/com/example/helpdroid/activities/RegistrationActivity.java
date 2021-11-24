@@ -58,12 +58,17 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = binding.userPass.getText().toString().trim();
         String confirmPassword = binding.userConfirmPass.getText().toString().trim();
         String phone = binding.userphoneInput.getText().toString().trim();
+        String trustedPhone = binding.trustedphoneInput.getText().toString().trim();
         String name = binding.usernameInput.getText().toString().trim();
 
 
-        if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty() || name.isEmpty()) {
+        if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty() ||trustedPhone.isEmpty() || name.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Field must not be empty!", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        if (password.length()<6 && confirmPassword.length()<6) {
+            Toast.makeText(getApplicationContext(), "Password should be 6 character or greater!", Toast.LENGTH_SHORT).show();
         }
 
         if(phone.length()<11 && phone.length()>11) {
@@ -71,8 +76,13 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        if(!password.equals(confirmPassword)) {
+        if(trustedPhone.length()<11 && trustedPhone.length()>11) {
+            Toast.makeText(getApplicationContext(), "Phone number must be 11 digit", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+
+        if(!password.equals(confirmPassword)) {
             Toast.makeText(getApplicationContext(), "Password and Confirm Password do not match!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -87,11 +97,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             binding.userPass.setText("");
                             binding.userConfirmPass.setText("");
                             binding.userphoneInput.setText("");
+                            binding.trustedphoneInput.setText("");
                             binding.useremailInput.setText("");
 
                             Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
-                            User user = new User(name,email,phone,"01839154602");
+                            User user = new User(name,email,phone,trustedPhone);
 
                             db.collection("User").document(email).set(user);
 

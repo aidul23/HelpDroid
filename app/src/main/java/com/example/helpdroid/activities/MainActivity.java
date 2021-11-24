@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import io.grpc.okhttp.internal.Util;
 
 import android.Manifest;
 import android.content.Intent;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String locationMessage;
     CarouselView carouselView;
     FusedLocationProviderClient fusedLocationProviderClient;
+    private int locationRequestCode = 1000;
     private static final String TAG = "MainActivity";
     User user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = auth.getCurrentUser().getEmail();
         Log.d(TAG, "onCreate: "+email);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        getLocation();
+
 
         db.collection("User").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -91,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         police.setOnClickListener(this);
         hospital.setOnClickListener(this);
@@ -99,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         help.setOnClickListener(this);
         profile.setOnClickListener(this);
 
-        getLocation();
 
         carouselView.setPageCount(3);
         carouselView.setImageListener(new ImageListener() {
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
     private void getLocation() {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -123,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             //when permission granted
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Location> task) {
 
@@ -140,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             currentLocation.setText(address.get(0).getAddressLine(0));
                             locationMessage = address.get(0).getAddressLine(0);
                             Log.d(TAG, "onComplete: "+locationMessage);
-
+                            Log.d(TAG, "onComplete: "+address);
 
                         } catch (IOException e) {
                             e.printStackTrace();

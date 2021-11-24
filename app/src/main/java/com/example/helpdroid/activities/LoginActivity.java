@@ -47,6 +47,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+    }
+
+
     private void login() {
         String email = binding.useremailInput.getText().toString().trim();
         String pass = binding.userPass.getText().toString().trim();

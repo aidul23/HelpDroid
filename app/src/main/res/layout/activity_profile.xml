@@ -143,6 +143,7 @@
                     android:background="@drawable/edit_button_background"
                     android:padding="3dp"
                     android:longClickable="true"
+                    android:visibility="gone"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_edit" />
