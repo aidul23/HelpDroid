@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //click handle
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,11 +54,11 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-
     private void login() {
         String email = binding.useremailInput.getText().toString().trim();
         String pass = binding.userPass.getText().toString().trim();
 
+        //database operations for authenticate a user
         firebaseAuth.signInWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

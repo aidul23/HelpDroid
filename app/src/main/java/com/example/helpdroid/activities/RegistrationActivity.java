@@ -35,6 +35,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //click handle
         binding.textRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String name = binding.usernameInput.getText().toString().trim();
 
 
+        //checking all the condition of text field
         if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty() ||trustedPhone.isEmpty() || name.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Field must not be empty!", Toast.LENGTH_SHORT).show();
             return;
@@ -87,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-
+        //database operations for authenticate a user
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

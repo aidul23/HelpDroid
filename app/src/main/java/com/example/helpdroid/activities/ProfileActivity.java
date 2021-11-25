@@ -42,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         binding.logoutButton.setOnClickListener(this);
     }
 
+    //click handle of buttons
     @Override
     public void onClick(View v) {
         Bundle bundle = new Bundle();
@@ -70,9 +71,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.edit_user_profile_pic:
                 ImagePicker.with(this)
                         .galleryOnly()
-                        .crop() //Crop image(Optional), Check Customization for more option
-                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .crop() //Crop image, Check Customization for more option
+                        .compress(1024) //Final image size will be less than 1 MB
+                        .maxResultSize(1080, 1080) //Final image resolution will be less than 1080 x 1080
                         .start();
             case R.id.logout_button:
                 FirebaseAuth.getInstance().signOut();
@@ -86,7 +87,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             Uri uri = data.getData();
             binding.profileImage.setImageURI(uri);
-
         }
 
 

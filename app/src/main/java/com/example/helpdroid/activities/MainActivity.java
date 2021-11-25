@@ -51,12 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String locationMessage;
     CarouselView carouselView;
     FusedLocationProviderClient fusedLocationProviderClient;
-    private int locationRequestCode = 1000;
     private static final String TAG = "MainActivity";
     User user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
+    //image links of slider
     private String[] urls = {"https://www.orissapost.com/wp-content/uploads/2020/01/WOMEN-SAFETY.jpeg",
             "https://vodakm.zeenews.com/vod/How-to-Protect-Yourself-IN-WEB.mp4/screenshot/00000027.jpg",
             "https://www.vpnmentor.com/wp-content/uploads/2018/07/wg18-768x403.jpg"};
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        resultReceiver = new AddressResultReceiver(new Handler());
+        //finding all the views
         police = findViewById(R.id.police);
         hospital = findViewById(R.id.hospital);
         fireService = findViewById(R.id.fireService);
@@ -76,13 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         userNameText = findViewById(R.id.user_name);
         carouselView = findViewById(R.id.imageSlider);
 
-        String email = auth.getCurrentUser().getEmail();
-        Log.d(TAG, "onCreate: "+email);
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         getLocation();
 
+        //database operation
+        String email = auth.getCurrentUser().getEmail();
+        Log.d(TAG, "onCreate: "+email);
 
         db.collection("User").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -105,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(this);
 
 
+        //image slider in home page
         carouselView.setPageCount(3);
         carouselView.setImageListener(new ImageListener() {
             @Override
@@ -117,9 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
+    //getting location of the device
     private void getLocation() {
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -160,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    //handle all the clicks
     @Override
     public void onClick(View view) {
 

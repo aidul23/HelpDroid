@@ -64,6 +64,7 @@ public class DetailsListHospitalActivity extends AppCompatActivity implements Ad
         recyclerView.setHasFixedSize(true);
     }
 
+    //call intent
     @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -91,6 +92,8 @@ public class DetailsListHospitalActivity extends AppCompatActivity implements Ad
         division = parent.getItemAtPosition(position).toString();
         Log.d(TAG, "onItemSelected: "+division);
         list.clear();
+
+        //database operations
         db.collection("Hospitals")
                 .whereEqualTo("division",division)
                 .get()

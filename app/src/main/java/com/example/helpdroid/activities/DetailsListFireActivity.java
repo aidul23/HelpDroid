@@ -62,6 +62,7 @@ public class DetailsListFireActivity extends AppCompatActivity implements Adapte
         recyclerView.setHasFixedSize(true);
     }
 
+    //for call intent
     @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -84,11 +85,14 @@ public class DetailsListFireActivity extends AppCompatActivity implements Adapte
         }
     }
 
+    //handling item change in spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         division = parent.getItemAtPosition(position).toString();
         Log.d(TAG, "onItemSelected: "+division);
         list.clear();
+
+        //database operation
         db.collection("Fire")
                 .whereEqualTo("division",division)
                 .get()
