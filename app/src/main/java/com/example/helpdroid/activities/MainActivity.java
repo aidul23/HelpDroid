@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     //handle all the clicks
     @Override
     public void onClick(View view) {
