@@ -194,9 +194,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //sending message to trusted number
     private void sendMessage() {
         String message = "Help me please! \nI am stack in " + locationMessage + ".\nHelpdroid";
+        String trustedContact = user.getTrustedPhoneNumber1();
+        Log.d(TAG, "sendMessage: "+trustedContact);
         if (!message.equals("")) {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage("01839154602", null, message, null, null);
+            smsManager.sendTextMessage(trustedContact, null, message, null, null);
             Toast.makeText(MainActivity.this, "Message sent successfully!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "You do not have balance!", Toast.LENGTH_SHORT).show();
