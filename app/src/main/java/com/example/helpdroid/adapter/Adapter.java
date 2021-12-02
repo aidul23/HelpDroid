@@ -23,7 +23,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
         this.list = list;
     }
 
-
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
